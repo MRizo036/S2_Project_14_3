@@ -5,8 +5,8 @@
    Tutorial 12
    Case Problem 3
 
-   Author: 
-   Date:   
+   Author: Maria De Jesus Rizo
+   Date:   4.3.19
 
    Filename: js_tree.js
 
@@ -37,12 +37,31 @@
       node and false if it doesn't
 */
 
+var nodeCount = 0;
+var elemCount = 0;
+var textCount = 0;
+var wsCount = 0;
 
+window.onload = makeTree;
+
+function makeTree() {
+      var treeBox = document.createElement("aside");
+      treeBox.id = "treeBox";
+      treeBox.innerHTML = "<h1>Node Text</h1>"
+
+      var mainSection = document.getElementById("main");
+      mainSection.appendChild(treeBox);
+
+      var nodeList = document.createElement("ol");
+
+      treeBox.appendChild(nodeList)
+
+}
 
 
 
 
 
 function isWhiteSpaceNode(tString) {
-   return !(/[^\t\n\r ]/.test(tString));
+      return !(/[^\t\n\r ]/.test(tString));
 }
