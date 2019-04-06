@@ -54,14 +54,54 @@ function makeTree() {
 
       var nodeList = document.createElement("ol");
 
-      treeBox.appendChild(nodeList)
+      treeBox.appendChild(nodeList);
 
+      var sourceArticle = document.querySelectorAll("#main article");
+
+      makeBranches(sourceArticle, nodeList);
 }
 
+function makeBranches(treeNode, nestedList) {
+      nodeCount++;
+
+      var liElem = document.createElement("li");
+      liElem.innerHTML = "+--"
+      var spanElem = document.createElement("span")
+      liElem.appendChild(spanElem);
+
+      if (treeNode.nodeType === 1) {
+            elemCount++;
+            spanElem.setAttribute("class", "elementNode");
+            spanElem.textContent = "<" + textNode.nodeName + ">";
+      } else if (treeNode.nodeType === 3) {
+            textCount++;
+            var textString = treeNode.nodeValue;
+
+
+            if (isWhiteSpaceNode(textString)) {
+                  wsCount++;
+                  spanElem.setAttribute("class", "whiteSpaceNode");
+                  spanElem.textContent = "#text";
+            } else {
+                  spanElem.setAttribute("class", "textNode")
+                  spanElem.textContent = textString;
+
+
+            }
+      }
+
+      if (treeNode.childNodes.length > 0) {
+            var newList = document.createAttribute("ol")
+            newList.innerHTML = "|";
+
+
+            for (var n = treeNode.firstChild; n !== )
+      }
 
 
 
 
-function isWhiteSpaceNode(tString) {
-      return !(/[^\t\n\r ]/.test(tString));
-}
+
+      function isWhiteSpaceNode(tString) {
+            return !(/[^\t\n\r ]/.test(tString));
+      }
