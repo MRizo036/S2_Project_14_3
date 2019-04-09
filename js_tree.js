@@ -41,13 +41,13 @@ var nodeCount = 0;
 var elemCount = 0;
 var textCount = 0;
 var wsCount = 0;
-
 window.onload = makeTree;
 
 function makeTree() {
+
       var treeBox = document.createElement("aside");
       treeBox.id = "treeBox";
-      treeBox.innerHTML = "<h1>Node Text</h1>"
+      treeBox.innerHTML = "<h1>Node Tree</h1>"
 
       var mainSection = document.getElementById("main");
       mainSection.appendChild(treeBox);
@@ -56,23 +56,32 @@ function makeTree() {
 
       treeBox.appendChild(nodeList);
 
-      var sourceArticle = document.querySelectorAll("#main article");
+      var sourceArticle = document.querySelector("#main article");
 
       makeBranches(sourceArticle, nodeList);
+
+      document.getElementById("totalNodes").textContent = nodeCount;
+      document.getElementById("elemNodes").textContent = elemCount;
+      document.getElementById("textNodes").textContent = textCount;
+      document.getElementById("wsNodes").textContent = wsCount;
+
 }
 
+
 function makeBranches(treeNode, nestedList) {
+
       nodeCount++;
 
       var liElem = document.createElement("li");
       liElem.innerHTML = "+--"
       var spanElem = document.createElement("span")
       liElem.appendChild(spanElem);
+      nestedList.appendChild(liElem);
 
       if (treeNode.nodeType === 1) {
             elemCount++;
             spanElem.setAttribute("class", "elementNode");
-            spanElem.textContent = "<" + textNode.nodeName + ">";
+            spanElem.textContent = "<" + treeNode.nodeName + ">";
       } else if (treeNode.nodeType === 3) {
             textCount++;
             var textString = treeNode.nodeValue;
@@ -85,23 +94,22 @@ function makeBranches(treeNode, nestedList) {
             } else {
                   spanElem.setAttribute("class", "textNode")
                   spanElem.textContent = textString;
-
-
             }
       }
-
       if (treeNode.childNodes.length > 0) {
-            var newList = document.createAttribute("ol")
+            var newList = document.createElement("ol");
             newList.innerHTML = "|";
-
-
-            for (var n = treeNode.firstChild; n !== )
+            nestedList.appendChild(newList);
+            for (var n = treeNode.firstChild; n !== null; n = n.nextSibling) {
+                  makeBranches(n, newList);
+            }
       }
+}
 
 
 
 
 
-      function isWhiteSpaceNode(tString) {
-            return !(/[^\t\n\r ]/.test(tString));
-      }
+function isWhiteSpaceNode(tString) {
+      return !(/[^\t\n\r ]/.test(tString));
+}
